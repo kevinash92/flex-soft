@@ -23,22 +23,23 @@
  * along with Alfresco. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { promise } from 'protractor';
-import { Page } from './page';
-import { APP_ROUTES } from '../configs';
-import { Utils } from '../utilities/utils';
+import * as AlfrescoApi from 'alfresco-js-api-node';
+import { REPO_API_HOST } from './../../configs';
+import { RepoClientAuth } from './repo-client-models';
 
-export class LogoutPage extends Page {
-    /** @override */
-    constructor() {
-        super(APP_ROUTES.LOGIN);
-    }
+export abstract class RepoApiNew {
 
-    /** @override */
-    load(): promise.Promise<any> {
-        return Utils.clearLocalStorage()
-            .then(() => Utils.clearSessionStorage())
-            .then(() => super.load());
-        // return super.load();
+    alfrescoJsApi = new AlfrescoApi({
+        provider: 'ECM',
+        hostEcm: REPO_API_HOST
+    });
+
+    constructor(
+        private username: string = RepoClientAuth.DEFAULT_USERNAME,
+        private password: string = RepoClientAuth.DEFAULT_PASSWORD
+    ) {}
+
+    apiAuth() {
+        return this.alfrescoJsApi.login(this.username, this.password);
     }
 }

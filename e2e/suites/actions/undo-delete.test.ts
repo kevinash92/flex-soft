@@ -43,7 +43,7 @@ describe('Undo delete content', () => {
     const { dataTable, toolbar } = page;
 
     beforeAll(done => {
-        apis.admin.people.createUser(username).then(done);
+        apis.admin.people.createUser({ username: username }).then(done);
     });
 
     afterAll(done => {

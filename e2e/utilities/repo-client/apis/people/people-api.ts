@@ -23,48 +23,54 @@
  * along with Alfresco. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import { RepoApi } from '../repo-api';
-import { Person } from './people-api-models';
+import { PersonModel, Person } from './people-api-models';
+import { RepoApiNew } from '../../repo-api-new';
 
-export class PeopleApi extends RepoApi {
-    getUser(username: string) {
-        return this
-            .get(`/people/${username}`)
-            .catch(this.handleError);
+export class PeopleApi extends RepoApiNew {
+
+    constructor(username?, password?) {
+        super(username, password);
     }
 
-    updateUser(username: string, details?: Person): Promise<any> {
-        if (details.id) {
-            delete details.id;
-        }
-
-        return this
-            .put(`/people/${username}`, { data: details })
-            .catch(this.handleError);
+    async createUser(user: PersonModel) {
+        const person = new Person(user);
+        await this.apiAuth();
+        return await this.alfrescoJsApi.core.peopleApi.addPerson(person);
     }
 
-    createUser(username: string, password?: string, details?: Person): Promise<any> {
-        const person: Person = new Person(username, password, details);
-        const onSuccess = (response) => response;
-        const onError = (response) => {
-            return (response.statusCode === 409)
-                ? Promise.resolve(this.updateUser(username, person))
-                : Promise.reject(response);
-        };
-
-        return this
-            .post(`/people`, { data: person })
-            .then(onSuccess, onError)
-            .catch(this.handleError);
+    async getUser(username: string) {
+        await this.apiAuth();
+        return await this.alfrescoJsApi.core.peopleApi.getPerson(username);
     }
 
-    disableUser(username: string): Promise<any> {
-        return this.put(`/people/${username}`, { data: { enabled: false } })
-            .catch(this.handleError);
-    }
+    // async updateUser(username: string, userDetails?: PersonModel) {
+        // await this.apiAuth();
+    // }
+    // updateUser(username: string, details?: Person): Promise<any> {
+    //     if (details.id) {
+    //         delete details.id;
+    //     }
+    //     return this
+    //         .put(`/people/${username}`, { data: details })
+    //         .catch(this.handleError);
+    // }
+    //     return this
+    //         .post(`/people`, { data: person })
+    //         .then(onSuccess, onError)
+    //         .catch(this.handleError);
+    // }
 
-    changePassword(username: string, newPassword: string) {
-        return this.put(`/people/${username}`, { data: { password: newPassword } })
-            .catch(this.handleError);
-    }
+    // async disableUser(username: string) {
+    // }
+    // disableUser(username: string): Promise<any> {
+    //     return this.put(`/people/${username}`, { data: { enabled: false } })
+    //         .catch(this.handleError);
+    // }
+
+    // async changePassword(username: string, newPassword: string) {
+    // }
+    // changePassword(username: string, newPassword: string) {
+    //     return this.put(`/people/${username}`, { data: { password: newPassword } })
+    //         .catch(this.handleError);
+    // }
 }

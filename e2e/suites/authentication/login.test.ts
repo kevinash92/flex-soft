@@ -35,11 +35,9 @@ describe('Login', () => {
     const loginPage = new LoginPage();
     const logoutPage = new LogoutPage();
 
-    /* cspell:disable-next-line */
     const testUser = `user-${Utils.random()}@alfness`;
 
     const russianUser = {
-        /* cspell:disable-next-line */
         username: `пользвате${Utils.random()}`,
         password: '密碼中國'
     };
@@ -51,32 +49,28 @@ describe('Login', () => {
         lastName: 'Doe'
     };
 
-    const disabledUser = `user-${Utils.random()}`;
-    const testUser2 = {
-        username: `user-${Utils.random()}`,
-        password: 'user2 password'
-    };
-    const newPassword = 'new password';
+    // TODO: enable this when ADF-3412 is done
+    // const disabledUser = `user-${Utils.random()}`;
+    // const testUser2 = {
+    //     username: `user-${Utils.random()}`,
+    //     password: 'user2 password'
+    // };
+    // const newPassword = 'new password';
 
     beforeAll(done => {
         Promise
             .all([
-                peopleApi.createUser(testUser),
-                peopleApi.createUser(russianUser.username, russianUser.password),
-                peopleApi.createUser(johnDoe.username, johnDoe.password, {
-                    firstName: johnDoe.firstName,
-                    lastName: johnDoe.lastName
-                }),
-                peopleApi.createUser(disabledUser).then(() => peopleApi.disableUser(disabledUser)),
-                peopleApi.createUser(testUser2.username, testUser2.password)
-            ])
-            .then(done);
+                peopleApi.createUser({ username: testUser }),
+                peopleApi.createUser(russianUser),
+                peopleApi.createUser(johnDoe)
+                // TODO: enable this when ADF-3412
+                // peopleApi.createUser(disabledUser).then(() => peopleApi.disableUser(disabledUser)),
+                // peopleApi.createUser(testUser2.username, testUser2.password)
+            ]).then(done);
     });
 
     afterEach(done => {
-        logoutPage.load()
-            .then(() => Utils.clearLocalStorage())
-            .then(done);
+        logoutPage.load().then(done);
     });
 
     xit('');
@@ -165,15 +159,16 @@ describe('Login', () => {
                 });
         });
 
-        it('user is able to login after changing his password', () => {
-            loginPage.loginWith(testUser2.username, testUser2.password)
-                .then(() => logoutPage.load())
-                .then(() => peopleApi.changePassword(testUser2.username, newPassword))
-                .then(() => loginPage.loginWith(testUser2.username, newPassword))
-                .then(() => {
-                    expect(browser.getCurrentUrl()).toContain(APP_ROUTES.PERSONAL_FILES);
-                });
-        });
+        // TODO: enable this when ADF-3412 is done
+        // it('user is able to login after changing his password', () => {
+        //     loginPage.loginWith(testUser2.username, testUser2.password)
+        //         .then(() => logoutPage.load())
+        //         .then(() => peopleApi.changePassword(testUser2.username, newPassword))
+        //         .then(() => loginPage.loginWith(testUser2.username, newPassword))
+        //         .then(() => {
+        //             expect(browser.getCurrentUrl()).toContain(APP_ROUTES.PERSONAL_FILES);
+        //         });
+        // });
     });
 
     describe('with invalid credentials', () => {
@@ -227,13 +222,14 @@ describe('Login', () => {
                 });
         });
 
-        it('disabled user is not logged in', () => {
-            loginPage.tryLoginWith(disabledUser)
-                .then(() => {
-                    expect(browser.getCurrentUrl()).toContain(APP_ROUTES.LOGIN);
-                    expect(errorMessage.isDisplayed()).toBe(true);
-                    expect(errorMessage.getText()).toBe(`You've entered an unknown username or password`);
-                });
-        });
+        // TODO: enable this when ADF-3412 is done
+        // it('disabled user is not logged in', () => {
+        //     loginPage.tryLoginWith(disabledUser)
+        //         .then(() => {
+        //             expect(browser.getCurrentUrl()).toContain(APP_ROUTES.LOGIN);
+        //             expect(errorMessage.isDisplayed()).toBe(true);
+        //             expect(errorMessage.getText()).toBe(`You've entered an unknown username or password`);
+        //         });
+        // });
     });
 });
