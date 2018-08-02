@@ -39,6 +39,5 @@ export class LogoutPage extends Page {
         return Utils.clearLocalStorage()
             .then(() => Utils.clearSessionStorage())
             .then(() => super.load());
-        // return super.load();
     }
 }

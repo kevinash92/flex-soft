@@ -25,7 +25,6 @@
 import { browser, ExpectedConditions as EC, promise } from 'protractor';
 import { LoginComponent } from '../components/components';
 import { Page } from './page';
-import { Utils } from '../utilities/utils';
 
 import {
     ADMIN_USERNAME,
@@ -49,8 +48,6 @@ export class LoginPage extends Page {
             const hasSubmitButton = EC.presenceOf(submitButton);
 
             return browser.wait(hasSubmitButton, BROWSER_WAIT_TIMEOUT);
-                // .then(() => Utils.clearLocalStorage())
-                // .then(() => browser.manage().deleteAllCookies());
         });
     }
 
@@ -62,8 +59,6 @@ export class LoginPage extends Page {
     }
 
     loginWithAdmin(): promise.Promise<any> {
-        // return this.load()
-        //     .then(() => this.loginWith(ADMIN_USERNAME, ADMIN_PASSWORD));
         return this.loginWith(ADMIN_USERNAME, ADMIN_PASSWORD);
     }
 
