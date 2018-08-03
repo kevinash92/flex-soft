@@ -457,7 +457,7 @@
                 {
                     "id": "app.contextmenu.download",
                     "type": "button",
-                    "order": 10,
+                    "order": 100,
                     "title": "APP.ACTIONS.DOWNLOAD",
                     "icon": "get_app",
                     "actions": {
@@ -470,7 +470,7 @@
                 {
                     "id": "app.contextmenu.preview",
                     "type": "button",
-                    "order": 15,
+                    "order": 200,
                     "title": "APP.ACTIONS.VIEW",
                     "icon": "open_in_browser",
                     "actions": {
@@ -483,7 +483,7 @@
                 {
                     "id": "app.contextmenu.editFolder",
                     "type": "button",
-                    "order": 20,
+                    "order": 300,
                     "title": "APP.ACTIONS.EDIT",
                     "icon": "create",
                     "actions": {
@@ -497,7 +497,7 @@
                     "id": "app.contextmenu.share",
                     "type": "button",
                     "title": "APP.ACTIONS.SHARE",
-                    "order": 25,
+                    "order": 400,
                     "icon": "share",
                     "actions": {
                         "click": "SHARE_NODE"
@@ -510,7 +510,7 @@
                     "id": "app.contextmenu.favorite.add",
                     "type": "button",
                     "title": "APP.ACTIONS.FAVORITE",
-                    "order": 30,
+                    "order": 500,
                     "icon": "star_border",
                     "actions": {
                         "click": "ADD_FAVORITE"
@@ -523,7 +523,7 @@
                     "id": "app.contextmenu.favorite.remove",
                     "type": "button",
                     "title": "APP.ACTIONS.FAVORITE",
-                    "order": 30,
+                    "order": 500,
                     "icon": "star",
                     "actions": {
                         "click": "REMOVE_FAVORITE"
@@ -533,10 +533,20 @@
                     }
                 },
                 {
+                    "id": "app.contextmenu.favorite",
+                    "comment": "workaround for Recent Files and Search API issue",
+                    "type": "custom",
+                    "order": 501,
+                    "component": "app.toolbar.toggleFavorite",
+                    "rules": {
+                        "visible": "app.toolbar.favorite.canToggle"
+                    }
+                },
+                {
                     "id": "app.contextmenu.copy",
                     "type": "button",
                     "title": "APP.ACTIONS.COPY",
-                    "order": 35,
+                    "order": 600,
                     "icon": "content_copy",
                     "actions": {
                         "click": "COPY_NODES"
@@ -549,7 +559,7 @@
                     "id": "app.contextmenu.move",
                     "type": "button",
                     "title": "APP.ACTIONS.MOVE",
-                    "order": 40,
+                    "order": 700,
                     "icon": "library_books",
                     "actions": {
                         "click": "MOVE_NODES"
@@ -562,7 +572,7 @@
                     "id": "app.contextmenu.delete",
                     "type": "button",
                     "title": "APP.ACTIONS.DELETE",
-                    "order": 45,
+                    "order": 800,
                     "icon": "delete",
                     "actions": {
                         "click": "DELETE_NODES"
@@ -575,7 +585,7 @@
                     "id": "app.contextmenu.versions",
                     "type": "button",
                     "title": "APP.ACTIONS.VERSIONS",
-                    "order": 50,
+                    "order": 900,
                     "icon": "history",
                     "actions": {
                         "click": "MANAGE_VERSIONS"
@@ -589,7 +599,7 @@
                     "type": "button",
                     "title": "APP.ACTIONS.PERMISSIONS",
                     "icon": "settings_input_component",
-                    "order": 55,
+                    "order": 1000,
                     "actions": {
                         "click": "MANAGE_PERMISSIONS"
                     },
@@ -602,6 +612,7 @@
                     "type": "button",
                     "title": "APP.ACTIONS.DELETE_PERMANENT",
                     "icon": "delete_forever",
+                    "order": 1100,
                     "actions": {
                         "click": "PURGE_DELETED_NODES"
                     },
@@ -614,6 +625,7 @@
                     "type": "button",
                     "title": "APP.ACTIONS.RESTORE",
                     "icon": "restore",
+                    "order": 1200,
                     "actions": {
                         "click": "RESTORE_DELETED_NODES"
                     },
