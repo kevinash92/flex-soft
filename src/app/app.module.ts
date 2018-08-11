@@ -81,6 +81,8 @@ import { MaterialModule } from './material.module';
 import { ExperimentalDirective } from './directives/experimental.directive';
 import { ContentApiService } from './services/content-api.service';
 import { RatingComponent } from './rating/rating.component';
+import { NodePermissionDirective2 } from './common/directives/node-permission.directive';
+import { PermissionAddComponent } from './components/permission-add/permission-add.component';
 
 @NgModule({
     imports: [
@@ -135,7 +137,9 @@ import { RatingComponent } from './rating/rating.component';
         PaginationDirective,
         DocumentListDirective,
         ExperimentalDirective,
-        RatingComponent
+        RatingComponent,
+        NodePermissionDirective2,
+        PermissionAddComponent
     ],
     providers: [
         { provide: PageTitleService, useClass: AcaPageTitleService },
@@ -156,7 +160,8 @@ import { RatingComponent } from './rating/rating.component';
         ContentApiService
     ],
     entryComponents: [
-        NodeVersionsDialogComponent
+        NodeVersionsDialogComponent,
+        PermissionAddComponent
     ],
     bootstrap: [AppComponent]
 })

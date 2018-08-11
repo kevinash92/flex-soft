@@ -85,6 +85,14 @@
                 <button
                     mat-menu-item
                     *ngIf="selection.file"
+                    [aca-permission-add]="selection.file">
+                    <mat-icon>history</mat-icon>
+                    <span>fianga</span>
+                </button>
+
+                <button
+                    mat-menu-item
+                    *ngIf="selection.file"
                     [acaNodeVersions]="selection.file">
                     <mat-icon>history</mat-icon>
                     <span>{{ 'APP.ACTIONS.VERSIONS' | translate }}</span>
