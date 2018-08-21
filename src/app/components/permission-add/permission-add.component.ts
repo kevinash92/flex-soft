@@ -1,7 +1,8 @@
 import { Component, ViewEncapsulation, EventEmitter, Input, Output, Inject } from '@angular/core';
 import { MinimalNodeEntity, MinimalNodeEntryEntity } from 'alfresco-js-api';
-import { NodePermissionService } from '@alfresco/adf-content-services';
 import { MAT_DIALOG_DATA } from '@angular/material';
+import { NodePermissionService } from '@alfresco/adf-content-services';
+
 
 @Component({
   selector: 'aca-permission-add',

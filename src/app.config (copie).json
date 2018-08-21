@@ -1,0 +1,294 @@
+{
+    "ecmHost": "http://{hostname}{:port}",
+    "providers": "ECM",
+    "authType" : "BASIC",
+    "application": {
+        "name": "Alfresco Example Content Application",
+        "logo": "assets/images/alfresco-logo-white.svg",
+        "copyright":
+            "© 2017 - 2018 Alfresco Software, Inc. All rights reserved."
+    },
+    "experimental": {
+        "libraries": false
+    },
+    "headerColor": "#2196F3",
+    "languagePicker": false,
+    "pagination": {
+        "size": 25,
+        "supportedPageSizes": [25, 50, 100]
+    },
+    "files": {
+        "excluded": [".DS_Store", "desktop.ini", "Thumbs.db", ".git"]
+    },
+    "adf-version-manager": {
+        "allowComments": true,
+        "allowDownload": true
+    },
+    "sideNav": {
+        "preserveState": true,
+        "expandedSidenav": true
+    },
+    "navigation": {
+        "main": [
+            {
+                "icon": "folder",
+                "label": "APP.BROWSE.PERSONAL.SIDENAV_LINK.LABEL",
+                "title": "APP.BROWSE.PERSONAL.SIDENAV_LINK.TOOLTIP",
+                "disabled": false,
+                "route": {
+                    "url": "/personal-files"
+                }
+            },
+            {
+                "icon": "group_work",
+                "label": "APP.BROWSE.LIBRARIES.SIDENAV_LINK.LABEL",
+                "title": "APP.BROWSE.LIBRARIES.SIDENAV_LINK.TOOLTIP",
+                "disabled": false,
+                "route": {
+                    "url": "/libraries"
+                }
+            }
+        ],
+        "secondary": [
+            {
+                "icon": "people",
+                "label": "APP.BROWSE.SHARED.SIDENAV_LINK.LABEL",
+                "title": "APP.BROWSE.SHARED.SIDENAV_LINK.TOOLTIP",
+                "disabled": false,
+                "route": {
+                    "url": "/shared"
+                }
+            },
+            {
+                "icon": "schedule",
+                "label": "APP.BROWSE.RECENT.SIDENAV_LINK.LABEL",
+                "title": "APP.BROWSE.RECENT.SIDENAV_LINK.TOOLTIP",
+                "disabled": false,
+                "route": {
+                    "url": "/recent-files"
+                }
+            },
+            {
+                "icon": "star",
+                "label": "APP.BROWSE.FAVORITES.SIDENAV_LINK.LABEL",
+                "title": "APP.BROWSE.FAVORITES.SIDENAV_LINK.TOOLTIP",
+                "disabled": false,
+                "route": {
+                    "url": "/favorites"
+                }
+            },
+            {
+                "icon": "delete",
+                "label": "APP.BROWSE.TRASHCAN.SIDENAV_LINK.LABEL",
+                "title": "APP.BROWSE.TRASHCAN.SIDENAV_LINK.TOOLTIP",
+                "disabled": false,
+                "route": {
+                    "url": "/trashcan"
+                }
+            }
+        ]
+    },
+    "languages": [
+        {
+            "key": "de",
+            "label": "German"
+        },
+        {
+            "key": "en",
+            "label": "English"
+        },
+        {
+            "key": "es",
+            "label": "Spanish"
+        },
+        {
+            "key": "fr",
+            "label": "French"
+        },
+        {
+            "key": "it",
+            "label": "Italian"
+        },
+        {
+            "key": "ja",
+            "label": "Japanese"
+        },
+        {
+            "key": "nb",
+            "label": "Norwegian"
+        },
+        {
+            "key": "nl",
+            "label": "Dutch"
+        },
+        {
+            "key": "pt-BR",
+            "label": "Brazilian Portuguese"
+        },
+        {
+            "key": "ru",
+            "label": "Russian"
+        },
+        {
+            "key": "zh-CN",
+            "label": "Simplified Chinese"
+        }
+    ],
+    "content-metadata": {
+        "presets": {
+            "custom": [
+                {
+                    "title": "APP.CONTENT_METADATA.EXIF_GROUP_TITLE",
+                    "items": [
+                        {
+                            "aspect": "exif:exif",
+                            "properties": [
+                                "exif:pixelXDimension",
+                                "exif:pixelYDimension",
+                                "exif:dateTimeOriginal",
+                                "exif:exposureTime",
+                                "exif:fNumber",
+                                "exif:flash",
+                                "exif:focalLength",
+                                "exif:isoSpeedRatings",
+                                "exif:orientation",
+                                "exif:manufacturer",
+                                "exif:model",
+                                "exif:software"
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    },
+    "search": {
+        "include": ["path", "allowableOperations", "properties"],
+        "sorting": {
+            "options": [
+                {
+                    "key": "score",
+                    "label": "SEARCH.SORT.RELEVANCE",
+                    "type": "FIELD",
+                    "field": "score",
+                    "ascending": true
+                },
+                {
+                    "key": "name",
+                    "label": "SEARCH.SORT.FILENAME",
+                    "type": "FIELD",
+                    "field": "cm:name",
+                    "ascending": true
+                },
+                {
+                    "key": "title",
+                    "label": "SEARCH.SORT.TITLE",
+                    "type": "FIELD",
+                    "field": "cm:title",
+                    "ascending": true
+                },
+                {
+                    "key": "modified",
+                    "label": "SEARCH.SORT.MODIFIED_DATE",
+                    "type": "FIELD",
+                    "field": "cm:modified",
+                    "ascending": true
+                },
+                {
+                    "key": "modified",
+                    "label": "SEARCH.SORT.MODIFIER",
+                    "type": "FIELD",
+                    "field": "cm:modifier",
+                    "ascending": true
+                },
+                {
+                    "key": "modified",
+                    "label": "SEARCH.SORT.CREATE_DATE",
+                    "type": "FIELD",
+                    "field": "cm:created",
+                    "ascending": true
+                },
+                {
+                    "key": "content.sizeInBytes",
+                    "label": "SEARCH.SORT.SIZE",
+                    "type": "FIELD",
+                    "field": "content.size",
+                    "ascending": true
+                },
+                {
+                    "key": "content.mimetype",
+                    "label": "SEARCH.SORT.TYPE",
+                    "type": "FIELD",
+                    "field": "content.mimetype",
+                    "ascending": true
+                }
+            ],
+            "defaults": [
+                {
+                    "key": "score",
+                    "type": "FIELD",
+                    "field": "score",
+                    "ascending": true
+                }
+            ]
+        },
+        "filterQueries": [
+            { "query": "TYPE:'cm:folder' OR TYPE:'cm:content'" },
+            { "query": "NOT cm:creator:System" },
+            { "query": "NOT TYPE:'dl:dataList' AND NOT TYPE:'dl:todoList' AND NOT TYPE:'dl:issue' AND NOT TYPE:'fm:topic' AND NOT TYPE:'lnk:link' AND NOT TYPE:'fm:post'" }
+        ],
+        "facetFields": [
+            { "field": "content.mimetype", "mincount": 1, "label": "SEARCH.FACET_FIELDS.FILE_TYPE" },
+            { "field": "creator", "mincount": 1, "label": "SEARCH.FACET_FIELDS.CREATOR" },
+            { "field": "modifier", "mincount": 1, "label": "SEARCH.FACET_FIELDS.MODIFIER" },
+            { "field": "SITE", "mincount": 1, "label": "SEARCH.FACET_FIELDS.FILE_LIBRARY" }
+        ],
+        "categories": [
+            {
+                "id": "modifiedDate",
+                "name": "SEARCH.CATEGORIES.MODIFIED_DATE",
+                "enabled": true,
+                "component": {
+                    "selector": "check-list",
+                    "settings": {
+                        "options": [
+                            { "name": "Today", "value": "cm:modified:[TODAY to TODAY]" },
+                            { "name": "This week", "value": "cm:modified:[NOW/DAY-7DAYS TO NOW/DAY+1DAY]" },
+                            { "name": "This month", "value": "cm:modified:[NOW/DAY-1MONTH TO NOW/DAY+1DAY]"},
+                            { "name": "In last 6 months", "value": "cm:modified:[NOW/DAY-6MONTHS TO NOW/DAY+1DAY]"},
+                            { "name": "This year", "value": "cm:modified:[NOW/DAY-1YEAR TO NOW/DAY+1DAY]"}
+                        ]
+                    }
+                }
+            },
+            {
+                "id": "size",
+                "name": "SEARCH.CATEGORIES.SIZE",
+                "enabled": true,
+                "component": {
+                    "selector": "check-list",
+                    "settings": {
+                        "options": [
+                            { "name": "Small", "value": "content.size:[0 TO 1048576>" },
+                            { "name": "Medium", "value": "content.size:[1048576 TO 52428800]" },
+                            { "name": "Large", "value": "content.size:<52428800 TO 524288000]" },
+                            { "name": "Huge", "value": "content.size:<524288000 TO MAX]" }
+                        ]
+                    }
+                }
+            },
+            {
+                "id": "createdDateRange",
+                "name": "SEARCH.CATEGORIES.CREATED_DATE",
+                "enabled": true,
+                "component": {
+                    "selector": "date-range",
+                    "settings": {
+                        "field": "cm:created",
+                        "dateFormat": "DD-MMM-YY"
+                    }
+                }
+            }
+        ]
+    }
+}

@@ -48,6 +48,53 @@
         </adf-sidebar-action-menu>
     </div>
 
+    <div class="sidenav__section sidenav__section--menu">
+      <adf-accordion>
+        <adf-accordion-group [heading]="'Tableau de bord'" [isOpen]="true"
+                              [isSelected]="true" [headingIcon]="'dashboard'"
+                                [headingIconTooltip]="'Group Tooltip'">
+
+          <div class="sidenav__section sidenav__section--menu">
+
+              <adf-accordion-group *ngFor="let section of dashboard" [heading]="section.heading" [isOpen]="section.isOpen"
+                                    [isSelected]="false" [headingIcon]="section.headingIcon"
+                                      [headingIconTooltip]="section.headingIconTooltip">
+                <div class="sidenav__section sidenav__section--menu">
+                    <ul class="sidenav-menu">
+                        <li *ngFor="let item of section.menu" class="sidenav-menu__item"
+                            routerLinkActive
+                            #rla="routerLinkActive"
+                            title="item.title">
+
+                            <button [routerLink]="item.route"
+                                [color]="rla.isActive ? 'accent': 'primary'"
+                                [attr.aria-label]="item.label"
+                                mat-icon-button
+                                mat-ripple
+                                matRippleColor="primary"
+                                [matRippleTrigger]="rippleTrigger"
+                                [matRippleCentered]="true">
+
+                                <mat-icon>{{item.icon}}</mat-icon>
+                            </button>
+
+                            <span #rippleTrigger
+                                class="menu__item--label"
+                                [routerLink]="item.route"
+                                [hidden]="!showLabel"
+                                [ngClass]="{
+                                    'menu__item--active': rla.isActive,
+                                    'menu__item--default': !rla.isActive
+                                }">{{item.label}}</span>
+                        </li>
+                    </ul>
+                </div>
+              </adf-accordion-group>
+          </div>
+        </adf-accordion-group>
+      </adf-accordion>
+    </div>
+
     <div class="sidenav__section sidenav__section--menu" *ngFor="let list of navigation">
         <ul class="sidenav-menu">
             <li *ngFor="let item of list" class="sidenav-menu__item"

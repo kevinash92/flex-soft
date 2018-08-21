@@ -1,29 +1,4 @@
-/*!
- * @license
- * Alfresco Example Content Application
- *
- * Copyright (C) 2005 - 2018 Alfresco Software Limited
- *
- * This file is part of the Alfresco Example Content Application.
- * If the software was purchased under a paid Alfresco license, the terms of
- * the paid license agreement will prevail.  Otherwise, the software is
- * provided under the following open source license terms:
- *
- * The Alfresco Example Content Application is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * The Alfresco Example Content Application is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public License
- * along with Alfresco. If not, see <http://www.gnu.org/licenses/>.
- */
-
-import { Subscription } from 'rxjs/Rx';
+import { Subscription, Observable } from 'rxjs/Rx';
 import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { MinimalNodeEntryEntity } from 'alfresco-js-api';
 import { AppConfigService } from '@alfresco/adf-core';
@@ -31,6 +6,9 @@ import { AppConfigService } from '@alfresco/adf-core';
 
 import { BrowsingFilesService } from '../../common/services/browsing-files.service';
 import { NodePermissionService } from '../../common/services/node-permission.service';
+import { AppStore, ProfileState } from '../../store/states';
+import { Store } from '@ngrx/store';
+import { selectUser, appLanguagePicker } from '../../store/selectors/app.selectors';
 
 @Component({
     selector: 'app-sidenav',
@@ -42,14 +20,21 @@ export class SidenavComponent implements OnInit, OnDestroy {
 
     node: MinimalNodeEntryEntity = null;
     navigation = [];
+    dashboard = Array<any>();
 
     private subscriptions: Subscription[] = [];
 
+    profile$: Observable<ProfileState>;
+    languagePicker$: Observable<boolean>;
     constructor(
         private browsingFilesService: BrowsingFilesService,
         private appConfig: AppConfigService,
-        public permission: NodePermissionService
-    ) {}
+        public permission: NodePermissionService,
+        store: Store<AppStore>
+    ) {
+      this.profile$ = store.select(selectUser);
+      this.languagePicker$ = store.select(appLanguagePicker);
+    }
 
     ngOnInit() {
         this.navigation = this.buildMenu();
@@ -58,6 +43,8 @@ export class SidenavComponent implements OnInit, OnDestroy {
             this.browsingFilesService.onChangeParent
                 .subscribe((node: MinimalNodeEntryEntity) => this.node = node)
         ]);
+
+        this.dashboard = this.buildDashboard();
     }
 
     ngOnDestroy() {
@@ -69,5 +56,80 @@ export class SidenavComponent implements OnInit, OnDestroy {
         const data = Array.isArray(schema) ? { main: schema } : schema;
 
         return Object.keys(data).map((key) => data[key]);
+    }
+
+    // méthode ajoutée
+    private buildDashboard() {
+      let dashboard = [
+        {
+          heading : "Documents reçus",
+          isOpen:"true",
+          isSelected: "false",
+          headingIcon: "call_received",
+          headingIconTooltip: "Votre flux de traitement",
+          menu: [
+            {
+              label:"A valider",
+              title:"Vos documents à valider"+".",
+              route: '/unvalidateddoc',
+              icon: "refresh"
+           },
+            {
+              label:"Refusés",
+              title:"Documents que vous avez refusés"+".",
+              route: '/rejecteddoc',
+              icon: "close"
+           },
+            {
+              label:"Validés",
+              title:"Documents traités"+".",
+              route: '/validateddoc',
+              icon: "done_all"
+           },
+            {
+              label:"Copie/Information",
+              title:"Documents transmis en tant que copie",
+              route: '/informationdoc',
+              icon: "info"
+           }
+          ]
+        },
+
+        {
+          heading : "Documents émis",
+          isOpen:"false",
+          isSelected: "false",
+          headingIcon: "call_made",
+          headingIconTooltip: "Votre flux de traitement émis",
+          menu: [
+            {
+              label:"A traiter",
+              title:"Vos documents à valider",
+              route: '/atraiter',
+              icon: "input"
+           },
+            {
+              label:"Envoyés",
+              title:"Vos documents à valider"+".",
+              route: '/envoyes',
+              icon: "send"
+           },
+            {
+              label:"Brouillon",
+              title:"Vos documents à valider"+".",
+              route: '/brouillon',
+              icon: "drafts"
+           },
+            {
+              label:"Cloturé",
+              title:"Vos documents à valider"+".",
+              route: '/clotures',
+              icon: "close"
+           },
+          ]
+        }
+
+      ]
+      return dashboard;
     }
 }
